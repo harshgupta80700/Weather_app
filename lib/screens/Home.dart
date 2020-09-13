@@ -12,11 +12,11 @@ class _HomeState extends State<Home> {
   final TextEditingController weatherName = TextEditingController();
   bool isOnPressedClicked = false;
   Weather weather = new Weather();
+  GetWeatherDetails getWeatherDetails = new GetWeatherDetails();
   
   @override
   void initState() {
     super.initState();
-    getWeatherdetails('https://hg-weather-application.herokuapp.com/weather?address=delhi');
   }
   
   @override
@@ -41,9 +41,10 @@ class _HomeState extends State<Home> {
                 onPressed:(){
                   setState(() {
                     //isOnPressedClicked =  true;
-                    weather = getWeatherdetails('https://hg-weather-application.herokuapp.com/weather?address=delhi').then((value){
-                      print(weather.name);
-                    }) as Weather;
+                    var response;
+                    response = getWeatherDetails.getWeatherdetails('https://hg-weather-application.herokuapp.com/weather?address=delhi').then((value){
+                      print(response);
+                    });
                   });
                 },
                 child: Text("Submit"),
