@@ -44,6 +44,9 @@ class _HomeState extends State<Home> {
                     var response;
                     response = getWeatherDetails.getWeatherdetails('https://hg-weather-application.herokuapp.com/weather?address=delhi').then((value){
                       print(response);
+                      var data = getWeatherDetails.jsondata;
+                      print(data);
+                      print(data['name']);
                     });
                   });
                 },
