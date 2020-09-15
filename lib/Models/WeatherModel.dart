@@ -21,4 +21,18 @@ class Weather {
     this.tempinC
   });
 
+  factory Weather.fromJson(Map<String,dynamic> item){
+    return Weather(
+      name: item['name'],
+      address: item['address'],
+      latitude: item['latitude'],
+      location: item['location'],
+      longitude: item['longitude'],
+      region: item['region'],
+      country: item['country'],
+      tempinC: item['tempinC'],
+      tempinF: item['tempinF']
+    );
+  }
+
 }

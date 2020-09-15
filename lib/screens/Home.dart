@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/Models/ApiResponse.dart';
 import 'package:weather_app/Models/WeatherModel.dart';
 import 'package:weather_app/services/GetWeatherDetails.dart';
 
@@ -11,8 +12,9 @@ class _HomeState extends State<Home> {
 
   final TextEditingController weatherName = TextEditingController();
   bool isOnPressedClicked = false;
-  Weather weather = new Weather();
-  GetWeatherDetails getWeatherDetails = new GetWeatherDetails();
+  APIResponse<Weather> _apiResponse;
+  GetWeatherDetails getWeatherDetailsServices = new GetWeatherDetails();
+
   
   @override
   void initState() {
@@ -38,17 +40,20 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: 30,),
               RaisedButton(
-                onPressed:(){
-                  setState(() {
-                    //isOnPressedClicked =  true;
-                    var response;
-                    response = getWeatherDetails.getWeatherdetails('https://hg-weather-application.herokuapp.com/weather?address=delhi').then((value){
-                      print(response);
-                      var data = getWeatherDetails.jsondata;
-                      print(data);
-                      print(data['name']);
-                    });
-                  });
+                onPressed:() async {
+                  _apiResponse = await getWeatherDetailsServices.getWeatherdetails("Delhi");
+                  print(_apiResponse);
+                  // setState(() async {
+                  //
+                  //   //isOnPressedClicked =  true;
+                  //   // var response;
+                  //   // response = getWeatherDetails.getWeatherdetails("Delhi").then((value){
+                  //   //   print(response);
+                  //   //   var data = getWeatherDetails;
+                  //   //   print(data);
+                  //   //   print(data['name']);
+                  //   // });
+                  // });
                 },
                 child: Text("Submit"),
               )
