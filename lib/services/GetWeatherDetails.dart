@@ -9,18 +9,23 @@ class GetWeatherDetails{
 
   Weather weather = new Weather();
 
-  String url = "https://hg-weather-application.herokuapp.com/weather?address=";
+  String url = "https://hg-weather-appplication.herokuapp.com/weather?address=";
 
   Future<APIResponse<Weather>> getWeatherdetails(String address) async{
     return http.get(url + address).then((value){
-      var jsonData = jsonDecode(value.body);
-      Weather weather;
-
-      print(value.statusCode);
-      print(jsonData);
-
+      if(value.statusCode == 200){
+        var jsonData = jsonDecode(value.body);
+        final weather = Weather.fromJson(jsonData);
+        return APIResponse<Weather>(
+            data: weather
+        );
+      }
+      throw Error();
     }).catchError((e){
-
+      return APIResponse<Weather>(
+        error: true,
+        errorMessage: "An error has Occured",
+      );
     });
 
     }

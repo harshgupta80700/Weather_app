@@ -42,7 +42,9 @@ class _HomeState extends State<Home> {
               RaisedButton(
                 onPressed:() async {
                   _apiResponse = await getWeatherDetailsServices.getWeatherdetails("Delhi");
-                  print(_apiResponse);
+                  print(_apiResponse.data);
+                  print(_apiResponse.error);
+                  print(_apiResponse.errorMessage);
                   // setState(() async {
                   //
                   //   //isOnPressedClicked =  true;
