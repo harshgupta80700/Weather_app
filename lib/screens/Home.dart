@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/Models/ApiResponse.dart';
 import 'package:weather_app/Models/WeatherModel.dart';
+import 'package:weather_app/screens/Landing.dart';
 import 'package:weather_app/services/GetWeatherDetails.dart';
 
 class Home extends StatefulWidget {
@@ -41,22 +42,37 @@ class _HomeState extends State<Home> {
               SizedBox(height: 30,),
               RaisedButton(
                 onPressed:() async {
-                  _apiResponse = await getWeatherDetailsServices.getWeatherdetails("Delhi");
-                  print(_apiResponse.data);
-                  print(_apiResponse.error);
-                  print(_apiResponse.errorMessage);
-                  // setState(() async {
-                  //
-                  //   //isOnPressedClicked =  true;
-                  //   // var response;
-                  //   // response = getWeatherDetails.getWeatherdetails("Delhi").then((value){
-                  //   //   print(response);
-                  //   //   var data = getWeatherDetails;
-                  //   //   print(data);
-                  //   //   print(data['name']);
-                  //   // });
-                  // });
-                },
+                  setState(() {
+                    isOnPressedClicked = true;
+                  });
+                  print("before");
+                  getWeatherDetailsServices.getWeatherdetails("Delhi").then((value){
+                    _apiResponse = value;
+                    print(value.data);
+                    print(_apiResponse.data);
+                    print(_apiResponse.error);
+                    print(_apiResponse.errorMessage);
+                    if(_apiResponse.error){
+                      setState(() {
+                        isOnPressedClicked =  false;
+                      });
+                      showDialog(context: context,
+                          builder: (_){
+                            return AlertDialog(
+                              title: Text(_apiResponse.errorMessage),
+                              actions: [
+                                FlatButton(onPressed: (){
+                                  Navigator.pop(context);
+                                }, child: Text("OK"))
+                              ],
+                            );
+                          }
+                      );
+                    }else{
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=>Landing(weather: _apiResponse.data,)));
+                    }
+                  });
+                                  },
                 child: Text("Submit"),
               )
             ],

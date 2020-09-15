@@ -21,8 +21,9 @@ class Weather {
     this.tempinC
   });
 
-  factory Weather.fromJson(Map<String,dynamic> item){
-    return Weather(
+  factory Weather.fromjson(Map<String,dynamic> item){
+    print("weather model called");
+    final weather =  Weather(
       name: item['name'],
       address: item['address'],
       latitude: item['latitude'],
@@ -33,6 +34,8 @@ class Weather {
       tempinC: item['tempinC'],
       tempinF: item['tempinF']
     );
+    print(weather.name);
+    return weather;
   }
 
 }
