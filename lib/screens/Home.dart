@@ -16,12 +16,6 @@ class _HomeState extends State<Home> {
   APIResponse<Weather> _apiResponse;
   GetWeatherDetails getWeatherDetailsServices = new GetWeatherDetails();
 
-  
-  @override
-  void initState() {
-    super.initState();
-  }
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +40,8 @@ class _HomeState extends State<Home> {
                     isOnPressedClicked = true;
                   });
                   print("before");
-                  getWeatherDetailsServices.getWeatherdetails("Delhi").then((value){
-                    _apiResponse = value;
-                    print(value.data);
-                    print(_apiResponse.data);
-                    print(_apiResponse.error);
-                    print(_apiResponse.errorMessage);
+                  getWeatherDetailsServices.getWeatherdetails(weatherName.text.toString()).then((value){
+                    _apiResponse =  value;
                     if(_apiResponse.error){
                       setState(() {
                         isOnPressedClicked =  false;
@@ -69,7 +59,11 @@ class _HomeState extends State<Home> {
                           }
                       );
                     }else{
-                      Navigator.push(context, MaterialPageRoute(builder: (_)=>Landing(weather: _apiResponse.data,)));
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=>Landing(weather: _apiResponse.data,))).then((value){
+                        setState(() {
+                          isOnPressedClicked =  false;
+                        });
+                      });
                     }
                   });
                                   },

@@ -10,6 +10,11 @@ class Landing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text("Weather Details",style: TextStyle(color: Colors.white),),
+        centerTitle: true,
+      ),
       body: Center(
         child: Text(weather.name),
       ),

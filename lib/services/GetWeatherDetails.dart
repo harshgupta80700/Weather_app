@@ -15,7 +15,8 @@ class GetWeatherDetails{
         return APIResponse<Weather>(
             data: weather
         );
-      }else throw Error();
+      }
+      throw Error();
     }).catchError((e){
       print(e);
       return APIResponse<Weather>(
